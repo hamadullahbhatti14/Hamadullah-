@@ -3,391 +3,121 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Bank Management System</title>
+<title>FutureIdea - AI Startup Idea Generator</title>
 
 <style>
-body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    background: #f4f6f9;
+
+body{
+font-family: Arial;
+background: linear-gradient(135deg,#1a2a6c,#b21f1f,#fdbb2d);
+height:100vh;
+display:flex;
+align-items:center;
+justify-content:center;
+color:white;
+margin:0;
 }
 
-
-header {
-    background: #004aad;
-    color: white;
-    padding: 15px;
-    text-align: center;
+.container{
+background:rgba(0,0,0,0.6);
+padding:40px;
+border-radius:15px;
+text-align:center;
+width:90%;
+max-width:600px;
 }
 
-header img {
-    height: 130px;
-    width: 130px;
-    vertical-align: middle;
+h1{
+font-size:32px;
+margin-bottom:10px;
 }
 
-header h1 {
-    display: inline;
-    margin-left: 10px;
+p{
+opacity:0.8;
 }
 
-nav {
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-    background: #003580;
+button{
+background:#00ffcc;
+border:none;
+padding:15px 25px;
+font-size:18px;
+border-radius:8px;
+cursor:pointer;
+margin-top:20px;
 }
 
-nav a {
-    color: white;
-    padding: 14px 18px;
-    text-decoration: none;
+button:hover{
+background:#00ccaa;
 }
 
-nav a:hover {
-    background: #00245c;
+#idea{
+margin-top:30px;
+font-size:22px;
+font-weight:bold;
 }
 
-.container { padding: 20px; }
-.hidden { display: none; }
-
-input, button {
-    padding: 8px;
-    margin: 5px 0;
-    width: 250px;
+footer{
+margin-top:30px;
+font-size:14px;
+opacity:0.7;
 }
 
-button {
-    background: #004aad;
-    color: white;
-    border: none;
-    cursor: pointer;
-}
-
-button:hover { background: #003580; }
-
-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 15px;
-    background: white;
-}
-
-th, td {
-    border: 1px solid #ddd;
-    padding: 10px;
-    text-align: center;
-}
-
-.dashboard-box {
-    background: white;
-    padding: 20px;
-    margin: 10px 0;
-    border-radius: 5px;
-    box-shadow: 0 0 5px rgba(0,0,0,0.1);
-}
-
-@media (max-width: 768px) {
-    nav { flex-direction: column; }
-    input, button { width: 100%; }
-}
 </style>
+
 </head>
 
 <body>
 
-
-<header>
-    <img src="https://crystalpng.com/wp-content/uploads/2025/01/meezan-bank-logo.png" alt="https://crystalpng.com/wp-content/uploads/2025/01/meezan-bank-logo.png">
-    <h1>Meezan Bank Management System</h1>
-</header>
-
-
-<nav>
-    <a href="#" onclick="showSection('dashboard')">Dashboard</a>
-    <a href="#" onclick="showSection('addCustomer')">Add Customer</a>
-    <a href="#" onclick="showSection('viewCustomer')">View Customer</a>
-    <a href="#" onclick="showSection('withdraw')">Withdraw</a>
-    <a href="#" onclick="showSection('deposit')">Deposit</a>
-    <a href="#" onclick="showSection('transfer')">Transfer</a>
-    <a href="#" onclick="showSection('report')">Report</a>
-    <a href="#" onclick="logout()">Logout</a>
-</nav>
-
 <div class="container">
 
-<center>
-<div id="loginSection">
-    <h2>Login</h2>
-    <input type="text" id="loginUsername" placeholder="Username"><br>
-    <input type="password" id="loginPassword" placeholder="Password"><br>
-    <button onclick="login()">Login</button>
-    <p>Don't have account?
-        <a href="#" onclick="toggleRegister(true)">Register Here</a>
-    </p>
-</div>
+<h1>🚀 FutureIdea Generator</h1>
+<p>Click the button to generate a million-dollar startup idea.</p>
 
-<div id="registerSection" class="hidden">
-    <h2>Register</h2>
-    <input type="text" id="regUsername" placeholder="Username"><br>
-    <input type="password" id="regPassword" placeholder="Password"><br>
-    <button onclick="register()">Register</button>
-    <p>Already have account?
-        <a href="#" onclick="toggleRegister(false)">Login Here</a>
-    </p>
-</div>
-</center>
+<button onclick="generateIdea()">Generate Idea</button>
 
-<div id="dashboard" class="hidden">
-    <h2>Dashboard</h2>
-    <div class="dashboard-box">
-        <h3>Total Customers</h3>
-        <p id="totalCustomers">0</p>
-    </div>
-    <div class="dashboard-box">
-        <h3>Total Bank Balance</h3>
-        <p id="totalBalance">0</p>
-    </div>
-</div>
+<div id="idea"></div>
 
-<div id="addCustomer" class="hidden">
-    <h2>Add Customer</h2>
-    <input type="text" id="custName" placeholder="Customer Name"><br>
-    <input type="text" id="custAccount" placeholder="Account Number"><br>
-    <input type="number" id="custBalance" placeholder="Initial Balance"><br>
-    <button onclick="addCustomer()">Add Customer</button>
-</div>
-
-<div id="viewCustomer" class="hidden">
-    <h2>Customers</h2>
-    <table>
-        <thead>
-            <tr>
-                <th>Name</th>
-                <th>Account</th>
-                <th>Balance</th>
-                <th>Delete</th>
-            </tr>
-        </thead>
-        <tbody id="customerTable"></tbody>
-    </table>
-</div>
-
-<div id="withdraw" class="hidden">
-    <h2>Withdraw</h2>
-    <input type="text" id="withdrawAccount" placeholder="Account Number"><br>
-    <input type="number" id="withdrawAmount" placeholder="Amount"><br>
-    <button onclick="withdrawMoney()">Withdraw</button>
-</div>
-
-<div id="deposit" class="hidden">
-    <h2>Deposit</h2>
-    <input type="text" id="depositAccount" placeholder="Account Number"><br>
-    <input type="number" id="depositAmount" placeholder="Amount"><br>
-    <button onclick="depositMoney()">Deposit</button>
-</div>
-
-<div id="transfer" class="hidden">
-    <h2>Transfer</h2>
-    <input type="text" id="fromAccount" placeholder="From Account"><br>
-    <input type="text" id="toAccount" placeholder="To Account"><br>
-    <input type="number" id="transferAmount" placeholder="Amount"><br>
-    <button onclick="transferMoney()">Transfer</button>
-</div>
-
-<div id="report" class="hidden">
-    <h2>Transaction Report</h2>
-    <table>
-        <thead>
-            <tr>
-                <th>Date & Time</th>
-                <th>Type</th>
-                <th>Details</th>
-                <th>Amount</th>
-            </tr>
-        </thead>
-        <tbody id="reportTable"></tbody>
-    </table>
-</div>
+<footer>
+Created by Hamadullah Bhatti
+</footer>
 
 </div>
 
 <script>
-let loggedIn = false;
-let customers = JSON.parse(localStorage.getItem("customers")) || [];
-let transactions = JSON.parse(localStorage.getItem("transactions")) || [];
 
-function saveData() {
-    localStorage.setItem("customers", JSON.stringify(customers));
-    localStorage.setItem("transactions", JSON.stringify(transactions));
+const ideas = [
+
+"AI that converts WhatsApp voice notes into summarized tasks",
+
+"A website that finds cheapest flights automatically every day",
+
+"AI resume builder that guarantees interview calls",
+
+"A platform where students sell notes to other students",
+
+"AI that creates YouTube video scripts automatically",
+
+"A marketplace for unused internet data sharing",
+
+"Website that turns PDFs into animated explainer videos",
+
+"AI that designs logos instantly for startups",
+
+"A tool that predicts viral TikTok ideas",
+
+"A website that finds trending products for dropshipping"
+
+];
+
+function generateIdea(){
+
+const random = ideas[Math.floor(Math.random()*ideas.length)];
+
+document.getElementById("idea").innerText = random;
+
 }
 
-function toggleRegister(show) {
-    loginSection.classList.toggle("hidden", show);
-    registerSection.classList.toggle("hidden", !show);
-}
-
-function register() {
-    if (!regUsername.value || !regPassword.value) return alert("Fill all fields");
-    localStorage.setItem("username", regUsername.value);
-    localStorage.setItem("password", regPassword.value);
-    alert("Registration Successful");
-    toggleRegister(false);
-}
-
-function login() {
-    if (loginUsername.value === localStorage.getItem("username") &&
-        loginPassword.value === localStorage.getItem("password")) {
-        loggedIn = true;
-        loginSection.classList.add("hidden");
-        showSection("dashboard");
-    } else alert("Invalid Login");
-}
-
-function logout() {
-    loggedIn = false;
-    document.querySelectorAll('.container > div').forEach(d => d.classList.add('hidden'));
-    loginSection.classList.remove("hidden");
-}
-
-function showSection(sec) {
-    if (!loggedIn) return alert("Please Login First");
-    document.querySelectorAll('.container > div').forEach(d => d.classList.add('hidden'));
-    document.getElementById(sec).classList.remove("hidden");
-    if (sec === "viewCustomer") displayCustomers();
-    if (sec === "dashboard") updateDashboard();
-    if (sec === "report") displayReport();
-}
-
-function addCustomer() {
-    const name = custName.value.trim();
-    const acc = custAccount.value.trim();
-    const bal = parseFloat(custBalance.value);
-
-    if (!name || !acc || isNaN(bal)) return alert("Fill correctly");
-    if (customers.some(c => c.account === acc)) return alert("Account Exists");
-
-    customers.push({ name, account: acc, balance: bal });
-    saveData();
-    updateDashboard();
-    displayCustomers();
-
-    custName.value = "";
-    custAccount.value = "";
-    custBalance.value = "";
-
-    alert("Customer Added Successfully");
-}
-function deleteCustomer(acc) {
-
-    if (!acc) {
-        alert("Invalid account number");
-        return;
-    }
-
-    let originalLength = customers.length;
-
-    customers = customers.filter(function(c) {
-        return c.account !== acc;
-    });
-
-    if (customers.length === originalLength) {
-        alert("Customer not found");
-        return;
-    }
-
-    saveData();
-    displayCustomers();
-    updateDashboard();
-
-    alert("Customer Deleted Successfully");
-}
-function displayCustomers() {
-    customerTable.innerHTML = "";
-    customers.forEach(c => {
-        customerTable.innerHTML += `
-        <tr>
-            <td>${c.name}</td>
-            <td>${c.account}</td>
-            <td>${c.balance.toFixed(2)}</td>
-            <td><button onclick="deleteCustomer('${c.account}')">Delete</button></td>
-        </tr>`;
-    });
-}
-
-function updateDashboard() {
-    totalCustomers.innerText = customers.length;
-    totalBalance.innerText = customers.reduce((s,c)=>s+c.balance,0).toFixed(2);
-}
-
-function withdrawMoney() {
-    const c = customers.find(x => x.account === withdrawAccount.value);
-    const amt = parseFloat(withdrawAmount.value);
-    if (c && amt > 0 && amt <= c.balance) {
-        c.balance -= amt;
-        addTransaction("Withdraw", c.account, amt);
-        saveData();
-        updateDashboard();
-        alert("Withdraw Success");
-    } else alert("Invalid");
-}
-
-function depositMoney() {
-    const c = customers.find(x => x.account === depositAccount.value);
-    const amt = parseFloat(depositAmount.value);
-    if (c && amt > 0) {
-        c.balance += amt;
-        addTransaction("Deposit", c.account, amt);
-        saveData();
-        updateDashboard();
-        alert("Deposit Success");
-    } else alert("Invalid");
-}
-
-function transferMoney() {
-    const from = customers.find(x => x.account === fromAccount.value);
-    const to = customers.find(x => x.account === toAccount.value);
-    const amt = parseFloat(transferAmount.value);
-    if (from && to && amt > 0 && amt <= from.balance) {
-        from.balance -= amt;
-        to.balance += amt;
-        addTransaction("Transfer", from.account+" → "+to.account, amt);
-        saveData();
-        updateDashboard();
-        alert("Transfer Success");
-    } else alert("Transfer Failed");
-}
-
-function addTransaction(type, details, amount) {
-    transactions.push({
-        date: new Date().toLocaleString(),
-        type, details, amount
-    });
-    saveData();
-}
-
-function displayReport() {
-    reportTable.innerHTML = "";
-    transactions.forEach(t => {
-        reportTable.innerHTML += `
-        <tr>
-            <td>${t.date}</td>
-            <td>${t.type}</td>
-            <td>${t.details}</td>
-            <td>${t.amount}</td>
-        </tr>`;
-    });
-}
 </script>
 
 </body>
-
 </html>
-
-
-
-
-
-
-
-
